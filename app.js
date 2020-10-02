@@ -7,6 +7,7 @@ const mongoose =require('mongoose')
 const config=require('./config')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const passport = require('passport');
 require('./authenticate')
 var app = express();
 mongoose.connect(config.mongodburl,{
@@ -15,6 +16,8 @@ mongoose.connect(config.mongodburl,{
   useCreateIndex:true,
   useFindAndModify:false
 });
+app.use(passport.initialize())
+app.use(passport.session())
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

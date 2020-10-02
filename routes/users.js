@@ -13,6 +13,16 @@ router.get('/',(req,res)=>{
   })
 })
 
+router.get( '/auth/google/callback',passport.authenticate( 'google', {
+        failureRedirect: '/users/auth/google/failure',
+        scope:[ 'email', 'profile' ] ,
+        session:false
+}),(req,res)=>{
+  res.send(req.profile)
+});
+router.get('/auth/google/failure',(req,res)=>{
+  res.send('YSome error occured.Try again');
+})
 router.post('/add_user',(req,res,next)=>{
   var secret=speakeasy.generateSecret({
     name:'harodu',
